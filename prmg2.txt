@@ -1,0 +1,29 @@
+import secrets
+import string
+
+def generate_password(length, complexity):
+    if complexity == "easy":
+        charset = string.ascii_letters + string.digits
+    elif complexity == "medium":
+        charset = string.ascii_letters + string.digits + string.punctuation
+    elif complexity == "hard":
+        charset = string.ascii_letters + string.digits + string.punctuation + string.ascii_uppercase + string.ascii_lowercase
+
+    password = ''.join(secrets.choice(charset) for _ in range(length))
+    return password
+
+def main():
+    print("Password Generator")
+    print("------------------")
+    length = int(input("Enter the length of the password: "))
+    complexity = input("Enter the complexity (easy, medium, hard): ").lower()
+
+    if complexity not in ["easy", "medium", "hard"]:
+        print("Invalid complexity level. Please choose from 'easy', 'medium', or 'hard'.")
+        return
+
+    password = generate_password(length, complexity)
+    print(f"Generated Password: {password}")
+
+if __name__ == "__main__":
+    main()
